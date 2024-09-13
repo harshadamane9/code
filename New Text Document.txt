@@ -1,0 +1,131 @@
+---------------------problem:The frequency of an element is the number of times it occurs in an array.You are given an integer array nums and an integer k. In one operation, you can choose an index of nums and increment the element at that index by 1.Return the maximum possible frequency of an element after performing at most k operations.
+Example 1:
+Input: nums = [1,2,4], k = 5
+Output: 3
+Explanation: Increment the first element three times and the second element two times to make nums = [4,4,4].
+4 has a frequency of 3.
+--------------------------------------------------------------------solution-----------------------------------------------------------------------------
+class Solution {
+public:
+    int maxFrequency(vector<int>& nums, int k) {
+        sort(nums.begin(), nums.end());
+        
+        long long sum = 0;
+        int maxFreq = 1;
+        int i = 0;
+        
+        // Step 2: Sliding window approach
+        for (int j = 0; j < nums.size(); ++j) {
+            sum += nums[j];
+            
+            // Step 3: Check if the current window is valid
+            while ((long long)nums[j] * (j - i + 1) - sum > k) {
+                sum -= nums[i];
+                ++i;
+            }
+            
+            // Step 4: Update the maximum frequency
+            maxFreq = max(maxFreq, j - i + 1);
+        }
+        
+        return maxFreq;
+    }
+};
+
+
+---------PROBLEM:Find second largest element of array.Given an array arr, return the second largest distinct element from an array. If the second largest element doesn't exist then return -1.---------------------------------------------------------------------------------------------
+class Solution {
+  public:
+    // Function returns the second
+    // largest elements
+    int print2largest(vector<int> &arr) {
+        // Code Here
+        int n=arr.size();
+      
+        int large=INT_MIN,slarge=INT_MIN;
+        for(int i=0;i<n;i++){
+            large=max(large,arr[i]);
+        }
+        for(int i=0;i<n;i++){
+            if(arr[i]>slarge && arr[i]!=large)
+             slarge=arr[i];
+        }
+        return slarge;
+    }
+};
+
+
+-----------PROBLEM:check if given array is sorted or rotated.-----------------------------------------------------------------------
+class Solution {
+public:
+    bool check(vector<int>& nums) {
+        int n=nums.size();
+        int count=0;
+        for(int i=0;i<n;i++){
+           if(nums[i]>nums[(i+1)%n]){
+            count++;
+           }
+        }
+        if(count<=1){
+            return true;
+        }
+        else return false; 
+        
+    }
+};
+-------------------------------PROBLEM:Remove duplicates from sorted Array--------------------------------------------------------
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+    if (nums.empty()) return 0;
+
+        int k = 1;  // Index of the next unique element
+        for (int i = 1; i < nums.size(); ++i) {
+            if (nums[i] != nums[i - 1]) {
+                nums[k] = nums[i];
+                ++k;
+            }
+        }
+        
+        return k;
+    }
+};
+--------------------------PROBLEM:Given an integer array nums, rotate the array to the right by k steps, where k is non-negative.------------
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        int i;
+        int n=nums.size();
+        int arr[n];
+        for(i=0;i<n;i++){
+            arr[(i+k)%n]=nums[i];
+        }
+        cout<<"[";
+        for(i=0;i<n;i++){
+          nums[i]=arr[i];
+          cout<<nums[i];
+          if(i!=n-1)
+          {
+            cout<<",";
+          }
+        }
+        cout<<"]";
+    }
+};
+-----------------PROBLEM:Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.Note that you must do this in-place without making a copy of the array.-------------------------------------------------------
+SOLUTION:
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int i;
+        int count=0;
+        int n=nums.size();
+        for(i=0;i<n;i++){
+            if(nums[i]!=0){
+                swap(nums[count++],nums[i]);
+            }
+
+        }
+        
+    }
+};
